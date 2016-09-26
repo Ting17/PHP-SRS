@@ -88,12 +88,12 @@ app.controller("getP", function ($scope, $http) {
 
 app.controller("postProduct", function ($scope, $http) {
     "use strict";
-    
+       
     // define methods
-    $scope.postData = function (prod_name, prod_desc, purchase_price) {
+    $scope.postData = function (prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date) {
         // Prepare the data
         var url = "api/insertProduct.php";
-        var data = $.param({prod_name: prod_name, prod_desc: prod_desc, purchase_price: purchase_price});
+        var data = $.param({prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -117,10 +117,10 @@ app.controller("putProduct", function ($scope, $http) {
     "use strict";
           
     // define methods
-    $scope.putData = function (prod_id,prod_name, prod_desc, purchase_price) {
+    $scope.putData = function (prod_id, prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date) {
         // Prepare the data
         var url = "api/updateProduct.php";
-        var data = $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, purchase_price: purchase_price});
+        var data = $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -149,17 +149,18 @@ app.controller("delProduct", function ($scope, $http) {
     $scope.delData = function (post) {
         // Prepare the data
         var url = "api/deleteProduct.php";
+        var data = $.param({prod_id: post});
+        var datal = $scope.posts.indexOf(post);
+        $scope.posts.splice(datal, 1);
+     
 
-        var data = $scope.posts.indexOf(post);
-        $scope.posts.splice(data, 1);
-       
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
             }
         };
         //Call the services
-        $http.put(url, data, config)
+        $http.post(url, data, config)
             .then(function (response) {
                 // depends on the data value, there may be instances of put failure
                 if (response.data) {
