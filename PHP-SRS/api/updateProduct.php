@@ -5,7 +5,7 @@
     //This line translating all params from js file to a variable named $put_vars
     parse_str(file_get_contents("php://input"),$put_vars);
  
-    $prod_id = $_POST['prod_id'];
+    $prod_id = $put_vars['prod_id'];
               
         if($put_vars['prod_name'] !== '')
         {

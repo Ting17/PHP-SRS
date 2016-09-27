@@ -61,48 +61,41 @@
                <form name="form" novalidate method="post">
         <fieldset>
             <!-- name -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.prod_name.$invalid && !form.prod_name.$pristine }">
+            <div class="form-group">
                     <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="Product Name" required>
-                    <span data-ng-show="form.prod_name.$error.required">Product name is required.</span>
             </div>
                                                         
             <!-- desc -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.prod_desc.$invalid && !form.prod_desc.$pristine }">
+            <div class="form-group">
                 <input type="text" name="prod_desc" class="form-control" data-ng-model="prod_desc" placeholder="Product description" required>
-                <span data-ng-show="form.prod_desc.$error.required">Product description is required.</span>
             </div>
                                             
             <!-- price -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.prod_price.$invalid && !form.prod_price.$pristine }" >
+            <div class="form-group" >
                 <input type="number" name="prod_price" class="form-control" data-ng-model="prod_price" placeholder="Product price" required />
-                <span data-ng-show="form.prod_price.$error.required">Product price is required</span>
             </div>
             
             <!-- Manufacture -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Manufacture.$invalid && !form.Manufacture.$pristine }">
+            <div class="form-group">
                 <input type="text" name="Manufacture" class="form-control" data-ng-model="Manufacture" placeholder="Manufacture" required>
-                <span data-ng-show="form.Manufacture.$error.required">Product Manufacture is required.</span>
             </div>
             
             <!-- Product Category  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Category.$invalid && !form.Category.$pristine }">
+            <div class="form-group">
                 <input type="text" name="Category" class="form-control" data-ng-model="Category" placeholder="Product Category" required>
-                <span data-ng-show="form.Category.$error.required">Product Category is required.</span>
             </div>
             
             <!-- Manufacture Date  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Manu_date.$invalid && !form.Manu_date.$pristine }" >
+            <div class="form-group" >
                 <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="yyyy-mm-dd" pattern="20[1-2][0-9][-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
-                <span data-ng-show="form.Manu_date.$error.required">Date is required</span>
             </div>
         
             <!-- Expiry Date  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Expiry_date.$invalid && !form.Expiry_date.$pristine }" >
+            <div class="form-group" >
                 <input type="text" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" placeholder="yyyy-mm-dd" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
-                <span data-ng-show="form.Expiry_date.$error.required">Date is required</span>
             </div>
 
-            <button type="button" class="btn btn-default" data-ng-disabled="form.$invalid" data-ng-click="putData(post.prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
+            <button type="button" class="btn btn-default" data-ng-click="putData(post.prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
             
             <p>Output Message : {{msg}}</p>
         </fieldset>
