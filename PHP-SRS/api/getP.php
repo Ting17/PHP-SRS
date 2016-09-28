@@ -12,7 +12,11 @@
 		$outp .= '{"prod_id":"'  . $rs["prod_id"] . '",';
         $outp .= '"prod_name":"'  . $rs["prod_name"] . '",';
         $outp .= '"prod_desc":"'  . $rs["prod_desc"] . '",';
-        $outp .= '"purchase_price":"'  . $rs["purchase_price"] . '"}';
+        $outp .= '"prod_price":"'  . $rs["prod_price"] . '",';
+        $outp .= '"Manufacture":"'  . $rs["Manufacture"] . '",';
+        $outp .= '"Category":"'  . $rs["Category"] . '",';
+        $outp .= '"Manu_date":"'  . $rs["Manu_date"] . '",';
+        $outp .= '"Expiry_date":"'  . $rs["Expiry_date"] . '"}';
 	}
 	$outp ='['.$outp.']';
 	$conn->close();
