@@ -33,7 +33,7 @@
         <ul>
             <li>Product Name : {{post.prod_name}}</li>
             <li>Product Description : {{post.prod_desc}}</li>
-            <li>Product Price : $ {{post.prod_price | number: 2}}</li>
+            <li>Product Price : $ {{post.prod_price | number: 2 }}</li>
             <li>Manufacture : {{post.Manufacture}}</li>
             <li>Product Category : {{post.Category}}</li>
             <li>Manufacture Date : {{post.Manu_date}}</li>
@@ -184,7 +184,7 @@
             
             <!-- Manufacture Date  -->
             <div class="form-group" data-ng-class="{ 'has-error' : form.Manu_date.$invalid && !form.Manu_date.$pristine }" >
-                <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="yyyy-mm-dd" pattern="20[1-2][0-9][-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
+                <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="yyyy-mm-dd" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
                 <span data-ng-show="form.Manu_date.$error.required">Date is required</span>
             </div>
         

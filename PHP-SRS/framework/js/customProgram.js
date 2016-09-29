@@ -175,6 +175,136 @@ app.controller("delProduct", function ($scope, $http) {
 });
 
 
+/******************************************** SALES MODULES *************************************************/
+
+
+app.controller("newSales", function ($scope, $http) {
+    "use strict";
+    
+    // define methods
+    $scope.postData = function (prod_name,sales_quantity, member_id, sales_price) {
+        // Prepare the data
+        var url = "sales_api/insertSales.php";
+        var data = $.param({prod_name:prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        var config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        //Call the services
+        $http.post(url, data, config)
+            .then(function (response) {
+                // depends on the data value, there may be instances of put failure
+                if (response.data) {
+                    $scope.msg = response.data;
+                }
+            },
+                    function () {
+                    $scope.msg = "Service not Exists";
+                });
+    };
+});
+
+
+app.controller("getSales", function ($scope, $http) {
+    "use strict";
+    $http.get('sales_api/getSales.php')
+        .then(
+            function (response) {
+                $scope.posts = response.data;
+            //row to show
+                $scope.rowperpage = 5;
+            //initialize current page number
+                $scope.currentPage = 0;
+            //count page
+                $scope.pageCount = function () {
+                    return Math.ceil($scope.posts.length / $scope.rowperpage) - 1;
+                };
+            //for previous
+                $scope.prevPage = function () {
+                    if ($scope.currentPage > 0) {
+                        $scope.currentPage = $scope.currentPage - 1;
+                    }
+                };
+            //for previous    
+                $scope.nextPage = function () {
+                    if ($scope.currentPage < $scope.pageCount()) {
+                        $scope.currentPage = $scope.currentPage + 1;
+                    }
+                };
+            },
+            function () {
+        // error handling routine
+                $scope.posts = "error in fetching data";
+            }
+        );
+});
+
+
+app.controller("editSales", function ($scope, $http) {
+    "use strict";
+          
+    // define methods 
+    $scope.editData = function (sales_id,prod_name,sales_quantity,member_id, sales_price) {
+        // Prepare the data
+        var url = "sales_api/updateSales.php";
+        var data = $.param({sales_id: sales_id, prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        var config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        //Call the services
+        $http.put(url, data, config)
+            .then(
+                function (response) {
+                // depends on the data value, there may be instances of put failure
+                    if (response.data) {
+                        $scope.msg = response.data;
+                    }
+                },
+                function () {
+                    $scope.msg = "Service not Exists";
+                }
+            );
+    };
+});
+
+app.controller("delSales", function ($scope, $http) {
+    "use strict";
+    
+    // define methods
+    $scope.delSalesData = function (post) {
+        // Prepare the data
+        var url = "sales_api/deleteSales.php";
+        var data = $.param({sales_id: post});
+        var datal = $scope.posts.indexOf(post);
+        $scope.posts.splice(datal, 1);
+     
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        //Call the services
+        $http.post(url, data, config)
+            .then(function (response) {
+                // depends on the data value, there may be instances of put failure
+                if (response.data) {
+                    $scope.msg = response.data;
+                }
+            },
+                    function () {
+                    $scope.msg = "Service not Exists";
+                });
+    };
+});
+
+
+/******************************************** SALES MODULES *************************************************/
+
+
 
 // Pagination with Client-Side Data
 //pagination filter is resposible for selecting the subset of items for current page

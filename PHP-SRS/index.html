@@ -29,7 +29,7 @@
 
 <body>
     
-<div class="container" data-ng-controller="log">   
+<div class="container-fluid" data-ng-controller="log">   
    <div class="row">
 <div class="col-xs-12 col-sm-12 col-lg-12">
     <!-- Navigation -->
@@ -41,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">PHP-SRS</a>
+            <a class="navbar-brand" href="#home">PHP-SRS</a>
         </div>
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
@@ -71,7 +71,7 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search">
+                <!--<li class="sidebar-search">
                     <div class="input-group custom-search-form">
                         <input type="text" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -80,7 +80,7 @@
                             </button>
                         </span>
                     </div>
-                </li>
+                </li>-->
                 <li>
                     <a href="#product"><i class="fa fa-bar-chart-o fa-fw"></i> Project module</a>
     
@@ -95,8 +95,8 @@
     <!-- /.navbar-static-side -->
 </div>
 <div class="col-xs-12 col-sm-9 col-lg-9">
-    <div data-ng-view></div>
-    <!-- duno why?!!! -->
+    <div data-ng-view>
+    </div>
 </div>     
 </div> 
 </div> 
