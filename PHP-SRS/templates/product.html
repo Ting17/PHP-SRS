@@ -2,12 +2,13 @@
 <div class="col-xs-12 col-sm-12 col-lg-12">
 
 <!--get product data from database-->
-  <div class="table-responsive">
+    <div class="table-responsive">
         <table class="table table-stripped table-hover">
-            <caption>Product detail</caption>
+            <caption><h1>Product detail</h1></caption>
             <thead>
                 <tr>
-                    <th id="pid" scope="col">Product Id &nbsp;</th>
+                    <th id="pno" scope="col">No</th>
+                    <th id="pid" scope="col">Product Id</th>
                     <th id="pname" scope="col">Product Name</th>
                     <th id="pdesc" scope="col">Product Description</th>
                     <th id="pmore" scope="col">More</th>
@@ -17,6 +18,7 @@
             </thead>                      
             <tbody>
                 <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
+                    <td headers="pno" >{{$index + 1}}</td>
                     <td headers="pid">{{post.prod_id}}</td>
                     <td headers="pname">{{post.prod_name}}</td>
                     <td headers="pdesc">{{post.prod_desc}}</td>
@@ -33,7 +35,7 @@
         <ul>
             <li>Product Name : {{post.prod_name}}</li>
             <li>Product Description : {{post.prod_desc}}</li>
-            <li>Product Price : $ {{post.prod_price | number: 2 }}</li>
+            <li>Product Price : $ {{post.prod_price}}</li>
             <li>Manufacture : {{post.Manufacture}}</li>
             <li>Product Category : {{post.Category}}</li>
             <li>Manufacture Date : {{post.Manu_date}}</li>
@@ -62,39 +64,63 @@
         <fieldset>
             <!-- name -->
             <div class="form-group">
-                    <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="Product Name" required>
+                    <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="{{post.prod_name}}" />
             </div>
                                                         
             <!-- desc -->
             <div class="form-group">
-                <input type="text" name="prod_desc" class="form-control" data-ng-model="prod_desc" placeholder="Product description" required>
+                <textarea name="prod_desc" class="form-control" data-ng-model="prod_desc" placeholder="{{post.prod_desc}}" ></textarea>
             </div>
                                             
             <!-- price -->
-            <div class="form-group" >
-                <input type="number" name="prod_price" class="form-control" data-ng-model="prod_price" placeholder="Product price" required />
-            </div>
+            <div class="form-group"  data-ng-class="{ 'has-error' : form.prod_price.$invalid}">
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="number" name="prod_price" class="form-control" data-ng-model="prod_price" placeholder="{{post.prod_price}}" min="0" step="0.01" data-ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"/>
+                </div>
+                <span data-ng-show="form.prod_price.$error.pattern">Only accept up to 2 decimal point</span> 
+            </div>                  
+            
             
             <!-- Manufacture -->
             <div class="form-group">
-                <input type="text" name="Manufacture" class="form-control" data-ng-model="Manufacture" placeholder="Manufacture" required>
+                <input type="text" name="Manufacture" class="form-control" data-ng-model="Manufacture" placeholder="{{post.Manufacture}}" />
             </div>
             
             <!-- Product Category  -->
-            <div class="form-group">
-                <input type="text" name="Category" class="form-control" data-ng-model="Category" placeholder="Product Category" required>
+            <div class="form-group">       
+                <select class="form control" data-ng-model="Category">
+                    <optgroup label="Medicine">
+                        <option value="normal">normal</option>
+                        <option value="antibiotic">antibiotic</option>
+                        <option value="danger">danger</option>
+                    </optgroup>
+                    <optgroup label="Health care products">
+                        <option value="Ayam brand">Ayam brand</option>
+                        <option value="Johnson&Johnson">Johnson&amp;Johnson</option>
+                        <option value="Borneo">Borneo</option>
+                    </optgroup>
+                    <optgroup label="Accessories">
+                        <option value="plaster">plaster</option>
+                        <option value="yoko yoko">yoko yoko</option>
+                        <option value="cotton">cotton</option>
+                    </optgroup>
+                </select>
             </div>
             
             <!-- Manufacture Date  -->
-            <div class="form-group" >
-                <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="yyyy-mm-dd" pattern="20[1-2][0-9][-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
+            <div class="form-group" data-ng-class="{ 'has-error' : form.Manu_date.$invalid}">
+                <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="{{post.Manu_date}}" pattern="20[1-2][0-9][-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" />
+                <span data-ng-show="form.Manu_date.$error.pattern">Invalid date input format. Should be yyyy-mm-dd</span>
             </div>
         
             <!-- Expiry Date  -->
-            <div class="form-group" >
-                <input type="text" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" placeholder="yyyy-mm-dd" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
+            <div class="form-group" data-ng-class="{ 'has-error' : form.Expiry_date.$invalid}">
+                <input type="text" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" placeholder="{{post.Expiry_date}}" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" />
+                <span data-ng-show="form.Expiry_date.$error.pattern">Invalid date input format. Should be yyyy-mm-dd</span> 
+                <span data-ng-if="Expiry_date == Manu_date || Expiry_date <= Manu_date">Expiry Date should not be same or earlier than Manufacture Date. Do check again</span> 
             </div>
-
+            
             <button type="button" class="btn btn-default" data-ng-click="putData(post.prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
             
             <p>Output Message : {{msg}}</p>
@@ -107,13 +133,36 @@
     </div>                   
                     </td>
                     <td headers="pdelete" data-ng-controller="delProduct">                 
-                    <button type="button" class="btn btn-info btn-md glyphicon glyphicon-trash" data-ng-click="delData(post.prod_id)"></button>  
+                    <button type="button" class="btn btn-info btn-md glyphicon glyphicon-trash" data-target="#delete{{$index}}" data-toggle="modal"></button> 
+                        
+    <!--Delete comfirmation-->
+    <div class="modal" id="delete{{$index}}" role="dialog" data-ng-controller="delProduct">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close requestclose" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Delete ID: {{post.prod_id}}?</h3><br/>
+    </div>    
+    <div class="modal-body">
+        <form name="form" novalidate method="post">
+            Confirm to delete O.O ??
+        </form>     
+    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-ng-click="delData(post.prod_id)">Comfirm</button> 
+             <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
+        </div>
+    </div>
+    </div>
+    </div>               
                     </td>
                 </tr>
             </tbody> 
             <tfoot>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="7">
                         <ul class="pagination"> 
                             <li data-ng-class="{disabled: currentPage == 0}">
                                 <a data-ng-click="prevPage()">Prev</a>
@@ -126,13 +175,10 @@
                             </li>
                         </ul>
                     </td>
-                </tr>
-                             
+                </tr>              
             </tfoot>
         </table>      
     </div>     
-
-    
 </div>
         
 <div class="col-xs-12 col-sm-12 col-lg-12">
@@ -176,10 +222,32 @@
                 <span data-ng-show="form.Manufacture.$error.required">Product Manufacture is required.</span>
             </div>
             
+            
+            <div class="form-group" data-ng-class="{ 'has-error' : form.Quantity.$invalid && !form.Quantity.$pristine }" >
+                        <input type="number" name="Quantity" class="form-control" data-ng-model="Quantity" placeholder="Quantity" required />
+                        <span data-ng-show="form.Quantity.$error.required">Quantity is required</span>
+                    </div>
+            
+            
             <!-- Product Category  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Category.$invalid && !form.Category.$pristine }">
-                <input type="text" name="Category" class="form-control" data-ng-model="Category" placeholder="Product Category" required>
-                <span data-ng-show="form.Category.$error.required">Product Category is required.</span>
+            <div class="form-group" data-ng-class="{ 'has-error' : !form.Category.$pristine }">       
+                <select class="form control " data-ng-model="Category" required>
+                    <optgroup label="Medicine">
+                        <option value="normal">normal</option>
+                        <option value="antibiotic">antibiotic</option>
+                        <option value="danger">danger</option>
+                    </optgroup>
+                    <optgroup label="Health care products">
+                        <option value="Ayam brand">Ayam brand</option>
+                        <option value="Johnson&Johnson">Johnson&amp;Johnson</option>
+                        <option value="Borneo">Borneo</option>
+                    </optgroup>
+                    <optgroup label="Accessories">
+                        <option value="plaster">plaster</option>
+                        <option value="yoko yoko">yoko yoko</option>
+                        <option value="cotton">cotton</option>
+                    </optgroup>
+                </select>
             </div>
             
             <!-- Manufacture Date  -->

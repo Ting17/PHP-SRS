@@ -49,7 +49,7 @@
             $sql = "UPDATE product SET Expiry_date = '" . $Expiry_date . "' WHERE prod_id = '". $prod_id ."';";
         }
         
-        if($put_vars['prod_name'] !== '' && $put_vars['prod_desc'] !== ''&& $put_vars['prod_price'] !== ''&& $put_vars['Manufacture'] !== ''&& $put_vars['Category'] !== ''&& $put_vars['Manu_date'] !== ''&& $put_vars['Expiry_date'] !== '')
+        if($put_vars['prod_name'] !== '' && $put_vars['prod_desc'] !== '' && $put_vars['prod_price'] !== '' && $put_vars['Manufacture'] !== '' && $put_vars['Category'] !== '' && $put_vars['Manu_date'] !== '' && $put_vars['Expiry_date'] !== '')
         {
             $sql = "UPDATE product SET prod_name = '" . $prod_name . "', prod_desc = '" . $prod_desc . "', prod_price = '" . $prod_price . "', Manufacture = '" . $Manufacture . "', Category = '" . $Category . "', Manu_date = '" . $Manu_date . "', Expiry_date = '" . $Expiry_date . "' WHERE prod_id = '". $prod_id ."';";
         }
