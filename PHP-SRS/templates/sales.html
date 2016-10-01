@@ -21,7 +21,11 @@
     <tbody>
 
         <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
+<<<<<<< HEAD
             <td headers="pno">{{(currentPage* rowperpage)+$index+1}}</td>
+=======
+            <td headers="pno" scope="col">{{$index+1}}</td>
+>>>>>>> origin/master
             <td headers="id1">{{post.sales_id}}</td>
             <td headers="pid">{{post.prod_id}}</td>
             <td headers="pname">{{post.prod_name}}</td>
@@ -167,7 +171,11 @@
             
             <!-- Sales price -->  
             <div class="form-group" data-ng-class="{ 'has-error' : form.sales_price.$invalid && !form.sales_price.$pristine }">
+<<<<<<< HEAD
                 <span class="form-control" data-ng-model="sales_price">Overall Price : </span>
+=======
+                <span class="form-control" data-ng-model="sales_price" placeholder="sales_price" >Overall Price : </span>
+>>>>>>> origin/master
             </div>
                                                                  
             <button type="button" class="btn btn-default" data-ng-disabled="form.$invalid" data-ng-click="postData(prod_id, sales_quantity, member_id, sales_price)">Done</button>
