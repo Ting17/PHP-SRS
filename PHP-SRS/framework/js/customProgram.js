@@ -59,6 +59,7 @@ app.controller("getP", function ($scope, $http) {
         .then(
             function (response) {
                 $scope.posts = response.data;
+                
             //row to show
                 $scope.rowperpage = 5;
             //initialize current page number
@@ -85,6 +86,8 @@ app.controller("getP", function ($scope, $http) {
                 $scope.posts = "error in fetching data";
             }
         );
+    
+   
 });
 
 app.controller("postProduct", function ($scope, $http) {
@@ -95,6 +98,12 @@ app.controller("postProduct", function ($scope, $http) {
         // Prepare the data
         var url = "api/insertProduct.php";
         var data = $.param({prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
+        
+        //push date to table
+        $scope.posts.push({prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
+        
+        $('#add').modal('hide');
+        
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -114,14 +123,18 @@ app.controller("postProduct", function ($scope, $http) {
     };
 });
 
+
 app.controller("putProduct", function ($scope, $http) {
     "use strict";
-          
+     
     // define methods
     $scope.putData = function (prod_id, prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date) {
         // Prepare the data
         var url = "api/updateProduct.php";
         var data = $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
+        
+        $('.modal').modal('hide');
+        
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -141,6 +154,9 @@ app.controller("putProduct", function ($scope, $http) {
                 }
             );
     };
+
+    
+    
 });
             
 app.controller("delProduct", function ($scope, $http) {
@@ -151,10 +167,14 @@ app.controller("delProduct", function ($scope, $http) {
         // Prepare the data
         var url = "api/deleteProduct.php";
         var data = $.param({prod_id: post});
+        
+        //slice data
         var datal = $scope.posts.indexOf(post);
         $scope.posts.splice(datal, 1);
-     
-
+        
+        //close modal-backdrop
+        $('.modal-backdrop').remove();
+        
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
