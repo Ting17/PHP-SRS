@@ -18,11 +18,8 @@
             </thead>                      
             <tbody>
                 <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
-<<<<<<< HEAD
+
                     <td headers="pno">{{(currentPage* rowperpage)+$index+1}}</td>
-=======
-                    <td headers="pno" >{{$index + 1}}</td>
->>>>>>> origin/master
                     <td headers="pid">{{post.prod_id}}</td>
                     <td headers="pname">{{post.prod_name}}</td>
                     <td headers="pdesc">{{post.prod_desc}}</td>
@@ -147,7 +144,7 @@
     <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close requestclose" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">Delete ID: {{post.prod_id}}?</h3><br/>
+        <h3 class="modal-title">Delete Product ID: {{post.prod_id}}?</h3><br/>
     </div>    
     <div class="modal-body">
         <form name="form" novalidate method="post">
@@ -156,11 +153,7 @@
     </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-ng-click="delData(post.prod_id)">Comfirm</button> 
-<<<<<<< HEAD
-             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-=======
-             <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
->>>>>>> origin/master
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
     </div>
     </div>

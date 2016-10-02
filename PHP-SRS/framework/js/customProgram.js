@@ -169,10 +169,13 @@ app.controller("delProduct", function ($scope, $http) {
         var data = $.param({prod_id: post});
         
         //slice data
-        var datal = $scope.posts.indexOf(post);
-        $scope.posts.splice(datal, 1);
+        var datal = $scope.posts.indexOf($scope.post);
+        if(datal !== -1){
+            $scope.posts.splice(datal, 1);
+        }
         
         //close modal-backdrop
+        $('.modal').modal('hide');
         $('.modal-backdrop').remove();
         
         var config = {
@@ -206,6 +209,12 @@ app.controller("newSales", function ($scope, $http) {
         // Prepare the data
         var url = "sales_api/insertSales.php";
         var data = $.param({prod_name:prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        
+        //push date to table
+        $scope.posts.push({prod_name:prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        
+        $('#add').modal('hide');
+        
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -224,7 +233,6 @@ app.controller("newSales", function ($scope, $http) {
                 });
     };
 });
-
 
 app.controller("getSales", function ($scope, $http) {
     "use strict";
@@ -260,15 +268,17 @@ app.controller("getSales", function ($scope, $http) {
         );
 });
 
-
 app.controller("editSales", function ($scope, $http) {
     "use strict";
           
     // define methods 
-    $scope.editData = function (sales_id,prod_name,sales_quantity,member_id, sales_price) {
+    $scope.editData = function (sales_id,prod_name,sales_quantity,member_id) {
         // Prepare the data
         var url = "sales_api/updateSales.php";
-        var data = $.param({sales_id: sales_id, prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        var data = $.param({sales_id: sales_id, prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id});
+        
+       $('.modal').modal('hide');
+        
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -298,10 +308,14 @@ app.controller("delSales", function ($scope, $http) {
         // Prepare the data
         var url = "sales_api/deleteSales.php";
         var data = $.param({sales_id: post});
-        var datal = $scope.posts.indexOf(post);
-        $scope.posts.splice(datal, 1);
-     
-
+        var datal = $scope.posts.indexOf($scope.post);
+        if(datal !== -1){
+             $scope.posts.splice(datal, 1);
+        }
+         
+        //close modal-backdrop
+        $('.modal-backdrop').remove();
+        
         var config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
