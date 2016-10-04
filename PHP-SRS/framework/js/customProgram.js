@@ -6,8 +6,7 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/", {templateUrl: "templates/home.html"})
         .when("/home", {templateUrl: "templates/home.html"})
         .when("/product", {templateUrl: "templates/product.html"})
-        .when("/sales", {templateUrl: "templates/sales.html"})
-    ;
+        .when("/sales", {templateUrl: "templates/sales.html"});
 }]);
 
 //control login 
@@ -94,7 +93,7 @@ app.controller("postProduct", function ($scope, $http) {
     "use strict";
        
     // define methods
-    $scope.postData = function (prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date) {
+    $scope.postData = function (prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date) {
         // Prepare the data
         var url = "api/insertProduct.php";
         var data = $.param({prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
@@ -128,10 +127,10 @@ app.controller("putProduct", function ($scope, $http) {
     "use strict";
      
     // define methods
-    $scope.putData = function (prod_id, prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date) {
+    $scope.putData = function (prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date) {
         // Prepare the data
         var url = "api/updateProduct.php";
-        var data = $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
+        var data =  $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
         
         $('.modal').modal('hide');
         
@@ -205,13 +204,13 @@ app.controller("newSales", function ($scope, $http) {
     "use strict";
     
     // define methods
-    $scope.postData = function (prod_name,sales_quantity, member_id, sales_price) {
+    $scope.postData = function (prod_name, sales_quantity, member_id, sales_price) {
         // Prepare the data
         var url = "sales_api/insertSales.php";
-        var data = $.param({prod_name:prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        var data = $.param({prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
         
         //push date to table
-        $scope.posts.push({prod_name:prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
+        $scope.posts.push({prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
         
         $('#add').modal('hide');
         
@@ -272,12 +271,12 @@ app.controller("editSales", function ($scope, $http) {
     "use strict";
           
     // define methods 
-    $scope.editData = function (sales_id,prod_name,sales_quantity,member_id) {
+    $scope.editData = function (sales_id, prod_name, sales_quantity,member_id) {
         // Prepare the data
         var url = "sales_api/updateSales.php";
         var data = $.param({sales_id: sales_id, prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id});
         
-       $('.modal').modal('hide');
+        $('.modal').modal('hide');
         
         var config = {
             headers: {
@@ -309,8 +308,8 @@ app.controller("delSales", function ($scope, $http) {
         var url = "sales_api/deleteSales.php";
         var data = $.param({sales_id: post});
         var datal = $scope.posts.indexOf($scope.post);
-        if(datal !== -1){
-             $scope.posts.splice(datal, 1);
+        if (datal !== -1){
+            $scope.posts.splice(datal, 1);
         }
          
         //close modal-backdrop
