@@ -1,3 +1,4 @@
+
 <div class="row" data-ng-controller="getSales">
 <div class="col-xs-12 col-sm-12 col-lg-12">
 
@@ -15,7 +16,7 @@
             <th id="oprice" scope="col">Overall Price</th>
             <th id="sdate" scope="col">Date</th>
             <th id="sedit" scope="col">Edit</th>
-            <th id="sdelete" scope="col">Delete</th>
+            <!--<th id="sdelete" scope="col">Delete</th>-->
         </tr>
     </thead> 
     <tbody>
@@ -76,8 +77,8 @@
     </div> 
             </td>    
                     <td headers="sdelete" data-ng-controller="delSales">
-                        <button type="button" class="btn btn-info btn-md glyphicon glyphicon-trash" 
-                        data-target="#delete{{$index}}" data-toggle="modal"></button>     
+                        <!--<button type="button" class="btn btn-info btn-md glyphicon glyphicon-trash" 
+                        data-target="#delete{{$index}}" data-toggle="modal"></button> -->
                         
     <!--Delete comfirmation-->
     <div class="modal" id="delete{{$index}}" role="dialog" data-ng-controller="delProduct">
@@ -145,8 +146,8 @@
         <fieldset>
             <!-- product id -->
             <div class="form-group" data-ng-class="{ 'has-error' : form.prod_name.$invalid && !form.prod_name.$pristine }">
-                    <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="Product name" required>
-                    <span data-ng-show="form.prod_name.$error.required">Product name is required.</span>
+                <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="Product name" required>
+                <span data-ng-show="form.prod_name.$error.required">Product name is required.</span>
             </div>
             
             <!-- Sales quantity -->                                           
@@ -160,12 +161,6 @@
                 <input type="number" name="member_id" class="form-control" data-ng-model="member_id" placeholder="member_id" required/>
                 <span data-ng-show="form.member_id.$error.required">Member id is required.</span>
             </div>
-            
-            <!-- Sales price -->  
-            <div class="form-group" data-ng-class="{ 'has-error' : form.sales_price.$invalid && !form.sales_price.$pristine }">
-                <span class="form-control" data-ng-model="sales_price">Overall Price : </span>
-
-            </div>
                                                                  
             <button type="button" class="btn btn-default" data-ng-disabled="form.$invalid" data-ng-click="postData(prod_name, sales_quantity, member_id, sales_price)">Done</button>
             
@@ -178,4 +173,3 @@
 </div>
 
 </div>
-

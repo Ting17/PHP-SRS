@@ -212,7 +212,7 @@ app.controller("newSales", function ($scope, $http) {
         
         //push date to table
         $scope.posts.push({prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
-        
+
         $('#add').modal('hide');
         
         var config = {
@@ -226,12 +226,14 @@ app.controller("newSales", function ($scope, $http) {
                 // depends on the data value, there may be instances of put failure
                 if (response.data) {
                     $scope.msg = response.data;
+
                 }
             },
                     function () {
                     $scope.msg = "Service not Exists";
                 });
     };
+
 });
 
 app.controller("getSales", function ($scope, $http) {

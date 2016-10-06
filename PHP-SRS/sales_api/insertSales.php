@@ -38,9 +38,8 @@
             $member_id = "none";
         }
         $sales_price = $prod_price * $sales_quantity;  
-        $status = 'A';
         
-        $sql = "INSERT INTO tbl_sales(prod_id, sales_quantity, sales_date, member_id, sales_price, status) VALUES('". $prod_id ."','". $sales_quantity ."', '".$sales_date."' ,'".$member_id."', '".$sales_price."', '".$status."');";
+        $sql = "INSERT INTO tbl_sales(prod_id, sales_quantity, sales_date, member_id, sales_price) VALUES('". $prod_id ."','". $sales_quantity ."', '".$sales_date."' ,'".$member_id."', '".$sales_price."');";
         
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";

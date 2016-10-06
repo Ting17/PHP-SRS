@@ -31,8 +31,7 @@
 		$outp .= '"sales_quantity":"'  . $rs["sales_quantity"] . '",';
 		$outp .= '"sales_date":"'  . $rs["sales_date"] . '",';
 		$outp .= '"member_id":"'  . $rs["member_id"] . '",';
-        $outp .= '"sales_price":"'  . $rs["sales_price"] . '",';
-        $outp .= '"status":"'  . $rs["status"] . '"}';
+        $outp .= '"sales_price":"'  . $rs["sales_price"] . '"}';
 	}
 
 	$outp ='['.$outp.']';
