@@ -6,7 +6,8 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/", {templateUrl: "templates/home.html"})
         .when("/home", {templateUrl: "templates/home.html"})
         .when("/product", {templateUrl: "templates/product.html"})
-        .when("/sales", {templateUrl: "templates/sales.html"});
+        .when("/sales", {templateUrl: "templates/sales.html"})
+        .when("/logout", {templateUrl: "templates/home.html"});
 }]);
 
 //control login 

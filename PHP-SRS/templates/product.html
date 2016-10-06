@@ -124,7 +124,6 @@
             
             <button type="button" class="btn btn-default" data-ng-click="putData(post.prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
             
-            <p>Output Message : {{msg}}</p>
         </fieldset>
         </form>
         
@@ -223,7 +222,7 @@
                 <span data-ng-show="form.Manufacture.$error.required">Product Manufacture is required.</span>
             </div>
             
-            
+            <!-- Quantity -->
             <div class="form-group" data-ng-class="{ 'has-error' : form.Quantity.$invalid && !form.Quantity.$pristine }" >
                         <input type="number" name="Quantity" class="form-control" data-ng-model="Quantity" placeholder="Quantity" required />
                         <span data-ng-show="form.Quantity.$error.required">Quantity is required</span>
@@ -268,8 +267,6 @@
             </div>
 
             <button type="button" class="btn btn-default" data-ng-disabled="form.$invalid" data-ng-click="postData(prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
-            
-            <p>Output Message : {{msg}}</p>
         </fieldset>
         </form>
     </div>
