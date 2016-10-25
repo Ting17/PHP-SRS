@@ -91,7 +91,6 @@ app.controller("getP", function ($scope, $http) {
 });
 
 
-
 app.controller("postProduct", function ($scope, $http, dateFilter) {
     "use strict";
        
@@ -104,34 +103,9 @@ app.controller("postProduct", function ($scope, $http, dateFilter) {
         //push date to table
         $scope.posts.push({prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
         
-        // eroor..... will look into it sooon
-        //$('#add').modal('hide');
-        
-        
-//        $('#pManu').date({
-//            dateFormat: "yyyy-mm-dd"
-//        });
-        
-        //        $('#adddate').datepicker({
-//        dateFormat: 'yyyy-mm-dd',
-//       altField: '#thedate',
-//        altFormat: 'yy-mm-dd'
-//    });
-        
-    
-// $scope.date = new Date();
-//        
-//        $scope.$watch('date', function(date){
-//            $scope.postProduct = dateFilter(date, 'yyyy-MM-dd');
-//            console.log('A', $scope.date, $scope.postProduct);
-//        });
-//        
-//        $scope.$watch('dateString',function (postProduct){
-//            $scope.date = new Date(dateString);
-//            console.log('B', $scope.date, $scope.postProduct);
-//        });
-
-        
+        //close modal-backdrop
+        $("#add").hide();
+        $(".modal-backdrop").remove();
         
         var config = {
             headers: {
@@ -164,43 +138,10 @@ app.controller("putProduct", function ($scope, $http, dateFilter) {
         $scope.putProduct = dateFilter($scope.date, 'yyyy-MM-dd');
         
         var data =  $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
-         // error........will look into it sooon
-        //$('.modal').modal('hide');
         
-        
-     //   
-        
-   //       $scope.date ;
-//         $scope.date = new Date();
-//        
-//        $scope.$watch('date', function(date){
-//            $scope.putProduct = dateFilter($scope.date, 'yyyy-MM-dd');
-//            console.log('A', $scope.date, $scope.putProduct);
-//        });
-//        
-//        $scope.$watch('putProduct',function (putProduct){
-//            $scope.date = new Date(putProduct);
-//            console.log('B', $scope.date, $scope.putProduct);
-//        });
-
-//        $('#Manu_date').datepicker({
-//            dateFormat: 'yyyy-mm-dd'
-//        });
-        
-//        
-//        $('#datetimepicker').datetimepicker({
-//            viewMode: 'years',
-//            format: 'DD/MM/YYYY',
-//        });
-//        
-//        $('#datetimepicker').on("dp.change",function() {
-//            $scope.selecteddate=$("#datetimepicker").val();
-//            alert("selected dat is "+$scope.selecteddate);
-//        });
-//        
-//         $('#datetimepicker').datepicker();
-//        
-//        
+        //close modal-backdrop
+        $('.modal').hide();
+        $('.modal-backdrop').remove();
         
         var config = {
             headers: {
@@ -221,9 +162,6 @@ app.controller("putProduct", function ($scope, $http, dateFilter) {
                 }
             );
     };
-
-    
-    
 });
             
 app.controller("delProduct", function ($scope, $http) {
@@ -280,7 +218,9 @@ app.controller("newSales", function ($scope, $http) {
         //push date to table
         $scope.posts.push({prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id, sales_price: sales_price});
 
-        $('#add').modal('hide');
+        //close modal-backdrop
+        $("#add").hide();
+        $(".modal-backdrop").remove();
         
         var config = {
             headers: {
@@ -346,7 +286,8 @@ app.controller("editSales", function ($scope, $http) {
         var url = "sales_api/updateSales.php";
         var data = $.param({sales_id: sales_id, prod_name: prod_name, sales_quantity: sales_quantity, member_id: member_id});
         
-        $('.modal').modal('hide');
+        $('.modal').hide();
+        $(".modal-backdrop").remove();
         
         var config = {
             headers: {
@@ -366,41 +307,6 @@ app.controller("editSales", function ($scope, $http) {
                     $scope.msg = "Service not Exists";
                 }
             );
-    };
-});
-
-app.controller("delSales", function ($scope, $http) {
-    "use strict";
-    
-    // define methods
-    $scope.delSalesData = function (post) {
-        // Prepare the data
-        var url = "sales_api/deleteSales.php";
-        var data = $.param({sales_id: post});
-        var datal = $scope.posts.indexOf($scope.post);
-        if (datal !== -1){
-            $scope.posts.splice(datal, 1);
-        }
-         
-        //close modal-backdrop
-        $('.modal-backdrop').remove();
-        
-        var config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-            }
-        };
-        //Call the services
-        $http.post(url, data, config)
-            .then(function (response) {
-                // depends on the data value, there may be instances of put failure
-                if (response.data) {
-                    $scope.msg = response.data;
-                }
-            },
-                    function () {
-                    $scope.msg = "Service not Exists";
-                });
     };
 });
 
