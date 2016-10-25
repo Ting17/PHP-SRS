@@ -3,7 +3,7 @@
 
 <!--get product data from database-->
     <div class="table-responsive">
-        <table class="table table-stripped table-hover">
+        <table class="table table-stripped table-hover" id="export_table">
             <caption><h1>Product detail</h1></caption>
             <thead>
                 <tr>
@@ -18,7 +18,6 @@
             </thead>                      
             <tbody>
                 <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
-
                     <td headers="pno">{{(currentPage* rowperpage)+$index+1}}</td>
                     <td headers="pid">{{post.prod_id}}</td>
                     <td headers="pname">{{post.prod_name}}</td>
@@ -65,16 +64,19 @@
         <fieldset>
             <!-- name -->
             <div class="form-group">
+                 <label>Product name:</label>
                     <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="{{post.prod_name}}" />
             </div>
                                                         
             <!-- desc -->
             <div class="form-group">
-                <textarea name="prod_desc" class="form-control" data-ng-model="prod_desc" placeholder="{{post.prod_desc}}" ></textarea>
+                 <label>Product description:</label>
+                <textarea name="prod_desc" class="form-control" placeholder="{{post.prod_desc}}" ></textarea>
             </div>
                                             
             <!-- price -->
             <div class="form-group"  data-ng-class="{ 'has-error' : form.prod_price.$invalid}">
+                <label>Product price:</label>
                 <div class="input-group">
                     <span class="input-group-addon">$</span>
                     <input type="number" name="prod_price" class="form-control" data-ng-model="prod_price" placeholder="{{post.prod_price}}" min="0" step="0.01" data-ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"/>
@@ -85,11 +87,19 @@
             
             <!-- Manufacture -->
             <div class="form-group">
+                <label>Product Manufacture:</label>
                 <input type="text" name="Manufacture" class="form-control" data-ng-model="Manufacture" placeholder="{{post.Manufacture}}" />
+                
+                          
             </div>
+<!--
             
+            <date-util format="dd/MM/yyyy"></date-util>
+            
+-->
             <!-- Product Category  -->
-            <div class="form-group">       
+            <div class="form-group">  
+                <label>Product category:</label>
                 <select class="form control" data-ng-model="Category">
                     <optgroup label="Medicine">
                         <option value="normal">normal</option>
@@ -110,17 +120,46 @@
             </div>
             
             <!-- Manufacture Date  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Manu_date.$invalid}">
-                <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="{{post.Manu_date}}" pattern="20[1-2][0-9][-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" />
-                <span data-ng-show="form.Manu_date.$error.pattern">Invalid date input format. Should be yyyy-mm-dd</span>
+            <div class="form-group">
+                <label class="asterick">Product Manufacture Date:</label>          
+                <input type="date" name="Manu_date" class="form-control pManu"  data-ng-model="Manu_date" required /> <br/>
             </div>
+            
+<!--
+  <div class="input-append date form_datetime">
+    <input size="16" type="text" value="" readonly>
+    <span class="add-on"><i class="icon-th"></i></span>
+</div>
+ 
+<script>
+    $(".form_datetime").datetimepicker({
+        format: "yyyy-mm-dd",
+        
+    });
+</script>          
+-->
+                            
+<!--
+<script>          
+        $(function(){
+        $("#from").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+            var minValue = $(this).val();
+            minValue = $.datepicker.parseDate("yyyy-mm-dd", minValue);
+            minValue.setDate(minValue.getDate()+1);
+        })
+    });
+</script>
+-->
         
             <!-- Expiry Date  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Expiry_date.$invalid}">
-                <input type="text" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" placeholder="{{post.Expiry_date}}" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" />
-                <span data-ng-show="form.Expiry_date.$error.pattern">Invalid date input format. Should be yyyy-mm-dd</span> 
-                <span data-ng-if="Expiry_date == Manu_date || Expiry_date <= Manu_date">Expiry Date should not be same or earlier than Manufacture Date. Do check again</span> 
+            <div class="form-group" data-ng-class="{ 'has-error' : form.Expiry_date.$invalid}" >
+                <label class="asterick">Product Expiry Date:</label>
+                <input type="date" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" />
+               
+                <span data-ng-show="!form.Expiry_date.$pristine && Expiry_date == Manu_date || Expiry_date <= Manu_date">Expiry Date should not be same or earlier than Manufacture Date. Do check again</span> 
             </div>
+            
+            
             
             <button type="button" class="btn btn-default" data-ng-click="putData(post.prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
             
@@ -147,7 +186,7 @@
     </div>    
     <div class="modal-body">
         <form name="form" novalidate method="post">
-            Confirm to delete O.O ??
+            Once click "Confirm" product {{post.prod_id}} will be removed. Comfirm to delete?
         </form>     
     </div>
         <div class="modal-footer">
@@ -182,6 +221,15 @@
 </div>
         
 <div class="col-xs-12 col-sm-12 col-lg-12">
+    <button id="export" data-export="export">Export</button>
+    <script>
+        $(function(){
+            $("#export").click(function(){
+                $("#export_table").tableToCSV();
+            });
+        });
+    </script>
+    
     <button type="button" class="btn btn-info btn-md glyphicon glyphicon-plus" data-toggle="modal" data-target="#add"> Add</button>
      
     <!-- add form-->
@@ -192,46 +240,47 @@
     <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close requestclose" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">New Product</h3><br/>
+        <h3 class="modal-title">New Product</h3><hr/>
+        <p><i>All field with * are required</i></p>
     </div>    
         
     <div class="modal-body">
         <form name="form" novalidate method="post">
         <fieldset>
             <!-- name -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.prod_name.$invalid && !form.prod_name.$pristine }">
-                    <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" placeholder="Product Name" required>
-                    <span data-ng-show="form.prod_name.$error.required">Product name is required.</span>
+            <div class="form-group" data-ng-class="{ 'has-error' : !form.prod_name.$pristine }">
+                <label class="asterick">Product name:</label>
+                <input type="text" name="prod_name" class="form-control" data-ng-model="prod_name" required>   
             </div>
                                                         
             <!-- desc -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.prod_desc.$invalid && !form.prod_desc.$pristine }">
-                <input type="text" name="prod_desc" class="form-control" data-ng-model="prod_desc" placeholder="Product description" required>
-                <span data-ng-show="form.prod_desc.$error.required">Product description is required.</span>
+            <div class="form-group" data-ng-class="{ 'has-error' : !form.prod_desc.$pristine }">
+                <label class="asterick">Product description:</label>
+                <textarea name="prod_desc" class="form-control" data-ng-model="prod_desc" required> </textarea>
             </div>
                                             
             <!-- price -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.prod_price.$invalid && !form.prod_price.$pristine }" >
-                <input type="number" name="prod_price" class="form-control" data-ng-model="prod_price" placeholder="Product price" required />
-                <span data-ng-show="form.prod_price.$error.required">Product price is required</span>
+            <div class="form-group" data-ng-class="{ 'has-error' : !form.prod_price.$pristine }">
+                <label class="asterick">Product price:</label>
+                <input type="number" name="prod_price" class="form-control" data-ng-model="prod_price" min="0" required />
             </div>
             
             <!-- Manufacture -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Manufacture.$invalid && !form.Manufacture.$pristine }">
-                <input type="text" name="Manufacture" class="form-control" data-ng-model="Manufacture" placeholder="Manufacture" required>
-                <span data-ng-show="form.Manufacture.$error.required">Product Manufacture is required.</span>
+            <div class="form-group" data-ng-class="{ 'has-error' : !form.Manufacture.$pristine }">
+                <label class="asterick">Product Manufacture:</label>
+                <input type="text" name="Manufacture" class="form-control" data-ng-model="Manufacture" required>
             </div>
             
             <!-- Quantity -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Quantity.$invalid && !form.Quantity.$pristine }" >
-                        <input type="number" name="Quantity" class="form-control" data-ng-model="Quantity" placeholder="Quantity" required />
-                        <span data-ng-show="form.Quantity.$error.required">Quantity is required</span>
-                    </div>
-            
+            <div class="form-group" data-ng-class="{ 'has-error' : !form.Quantity.$pristine }">
+                <label class="asterick">Product quantity:</label>
+                <input type="number" name="Quantity" class="form-control" data-ng-model="Quantity" min="0" required /> 
+            </div>
             
             <!-- Product Category  -->
             <div class="form-group" data-ng-class="{ 'has-error' : !form.Category.$pristine }">       
-                <select class="form control " data-ng-model="Category">
+                <label class="asterick">Product category:</label> 
+                <select class="form control" data-ng-model="Category">
                     <optgroup label="Medicine">
                         <option value="normal">normal</option>
                         <option value="antibiotic">antibiotic</option>
@@ -250,20 +299,24 @@
                 </select>
             </div>
             
-            <!-- Manufacture Date  -->
-            <div class="form-group" data-ng-class="{ 'has-error' : form.Manu_date.$invalid && !form.Manu_date.$pristine }" >
-                <input type="text" name="Manu_date" class="form-control" data-ng-model="Manu_date" placeholder="yyyy-mm-dd" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
-                <span data-ng-show="form.Manu_date.$error.required">Date is required</span>
-                <span data-ng-show="form.Manu_date.$error.pattern">Invalid date input format. Should be yyyy-mm-dd</span>
-            </div>
-        
-            <!-- Expiry Date  -->
+            <!-- Manufacture Date  -->           
+            
+<div class="form-group" data-ng-class="{ 'has-error' : !form.Manu_date.$pristine }">
+<!--    Selected Date: {{ data.date | date:'yyyy-MM-dd a' }}-->
+    
+    <label class="asterick">Product Manufacture Date:</label>
+    <input type="date" name="Manu_date" class="form-control" data-ng-model="Manu_date" required /> <br/>
+
+<!--    {{date | date: 'yyyy-MM-dd'}}-->
+    
+    
+</div>
+ <!-- Expiry Date  -->
             <div class="form-group" data-ng-class="{ 'has-error' : form.Expiry_date.$invalid && !form.Expiry_date.$pristine }" >
-                <input type="text" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" placeholder="yyyy-mm-dd" pattern="2[0-9]{3}[-]([1-9]|0[1-9]|1[012])[-]([1-9]|0[1-9]|[12][0-9]|3[01])" required />
-                <span data-ng-show="form.Expiry_date.$error.required">Date is required</span>
-                <span data-ng-show="form.Expiry_date.$error.pattern">Invalid date input format. Should be yyyy-mm-dd</span> 
-                <span data-ng-if="Expiry_date == Manu_date || Expiry_date <= Manu_date">Expiry Date should not be same or earlier than Manufacture Date. Do check again</span> 
-  
+                <label class="asterick">Product Expiry Date:</label>
+                <input type="date" name="Expiry_date" class="form-control" data-ng-model="Expiry_date" required />
+               
+                <span data-ng-show="!form.Expiry_date.$pristine && Expiry_date == Manu_date || Expiry_date <= Manu_date">Expiry Date should not be same or earlier than Manufacture Date. Do check again</span> 
             </div>
 
             <button type="button" class="btn btn-default" data-ng-disabled="form.$invalid" data-ng-click="postData(prod_name, prod_desc,prod_price, Manufacture, Category, Manu_date, Expiry_date)">Done</button>
@@ -271,11 +324,36 @@
         </form>
     </div>
         
-        
     </div>
     </div>
     </div>     
 </div>
+
+<!--
+    
+    <div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                 $('#datetimepicker1').data("DateTimePicker").function (datepicker({viewMode: 'years'});)
+//                $('#datetimepicker1').datepicker({viewMode: 'years'});
+            });
+        </script>
+    </div>
+</div>
+    
+-->
+    
 </div>
 
 

@@ -90,7 +90,9 @@ app.controller("getP", function ($scope, $http) {
    
 });
 
-app.controller("postProduct", function ($scope, $http) {
+
+
+app.controller("postProduct", function ($scope, $http, dateFilter) {
     "use strict";
        
     // define methods
@@ -102,7 +104,34 @@ app.controller("postProduct", function ($scope, $http) {
         //push date to table
         $scope.posts.push({prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
         
-        $('#add').modal('hide');
+        // eroor..... will look into it sooon
+        //$('#add').modal('hide');
+        
+        
+//        $('#pManu').date({
+//            dateFormat: "yyyy-mm-dd"
+//        });
+        
+        //        $('#adddate').datepicker({
+//        dateFormat: 'yyyy-mm-dd',
+//       altField: '#thedate',
+//        altFormat: 'yy-mm-dd'
+//    });
+        
+    
+// $scope.date = new Date();
+//        
+//        $scope.$watch('date', function(date){
+//            $scope.postProduct = dateFilter(date, 'yyyy-MM-dd');
+//            console.log('A', $scope.date, $scope.postProduct);
+//        });
+//        
+//        $scope.$watch('dateString',function (postProduct){
+//            $scope.date = new Date(dateString);
+//            console.log('B', $scope.date, $scope.postProduct);
+//        });
+
+        
         
         var config = {
             headers: {
@@ -124,16 +153,54 @@ app.controller("postProduct", function ($scope, $http) {
 });
 
 
-app.controller("putProduct", function ($scope, $http) {
+
+app.controller("putProduct", function ($scope, $http, dateFilter) {
     "use strict";
      
     // define methods
     $scope.putData = function (prod_id, prod_name, prod_desc, prod_price, Manufacture, Category, Manu_date, Expiry_date) {
         // Prepare the data
         var url = "api/updateProduct.php";
-        var data =  $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
+        $scope.putProduct = dateFilter($scope.date, 'yyyy-MM-dd');
         
-        $('.modal').modal('hide');
+        var data =  $.param({prod_id: prod_id, prod_name: prod_name, prod_desc: prod_desc, prod_price: prod_price, Manufacture: Manufacture, Category: Category, Manu_date: Manu_date, Expiry_date: Expiry_date});
+         // error........will look into it sooon
+        //$('.modal').modal('hide');
+        
+        
+     //   
+        
+   //       $scope.date ;
+//         $scope.date = new Date();
+//        
+//        $scope.$watch('date', function(date){
+//            $scope.putProduct = dateFilter($scope.date, 'yyyy-MM-dd');
+//            console.log('A', $scope.date, $scope.putProduct);
+//        });
+//        
+//        $scope.$watch('putProduct',function (putProduct){
+//            $scope.date = new Date(putProduct);
+//            console.log('B', $scope.date, $scope.putProduct);
+//        });
+
+//        $('#Manu_date').datepicker({
+//            dateFormat: 'yyyy-mm-dd'
+//        });
+        
+//        
+//        $('#datetimepicker').datetimepicker({
+//            viewMode: 'years',
+//            format: 'DD/MM/YYYY',
+//        });
+//        
+//        $('#datetimepicker').on("dp.change",function() {
+//            $scope.selecteddate=$("#datetimepicker").val();
+//            alert("selected dat is "+$scope.selecteddate);
+//        });
+//        
+//         $('#datetimepicker').datepicker();
+//        
+//        
         
         var config = {
             headers: {
