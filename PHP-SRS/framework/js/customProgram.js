@@ -7,7 +7,8 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/home", {templateUrl: "templates/home.html"})
         .when("/product", {templateUrl: "templates/product.html"})
         .when("/sales", {templateUrl: "templates/sales.html"})
-        .when("/logout", {templateUrl: "templates/home.html"});
+        .when("/logout", {templateUrl: "templates/home.html"})
+		.when("/salesreport", {templateUrl: "templates/salesreport.html"});
 }]);
 
 //control login 
@@ -331,5 +332,19 @@ app.filter("pagination", function () {
 });
 
 
+//tab for sales report
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
 
 

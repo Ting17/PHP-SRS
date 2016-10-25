@@ -1,0 +1,249 @@
+<link href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+
+<div class="row" data-ng-controller="getP">
+<div class="col-xs-12 col-sm-12 col-lg-12">
+<style>
+body {font-family: "Lato", sans-serif;}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+
+<!--<div class="table-responsive">-->
+
+<ul class="tab">
+  <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Daily')">Daily</a></li>
+  <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Monthly')">Monthly</a></li>
+  <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Yearly')">Yearly</a></li>
+</ul>
+
+
+
+<div id="Daily" class="tabcontent">
+ <table class="table table-stripped table-hover">
+
+<caption><h1>Sales report<h1></caption>
+
+<!--datepicker-->
+<!--
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+		<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+    </div>
+</div>
+
+-->
+
+<!--
+
+<div class="input-group date" data-provide="datepicker">
+    <input type="date" class="form-control">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>
+-->
+<thead>
+
+  <tr>
+            <th id="pno" scope="col">No</th>
+            <th id="id1" scope="col">Sales Id</th>
+            <th id="pid" scope="col">Product Id</th>
+            <th id="pname" scope="col">Product Name</th>
+            <th id="qut" scope="col">Quantity</th>
+            <th id="memid" scope="col">Member Id</th>
+            <th id="oprice" scope="col">Overall Price</th>
+            <th id="sdate" scope="col">Date</th>
+			</tr>
+    </thead> 
+	 <tbody>
+	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
+	 
+	  </tbody>
+	  
+
+	      <tfoot>   
+                <tr>
+                    <td colspan="10">
+                        <ul class="pagination"> 
+                            <li data-ng-class="{disabled: currentPage == 0}">
+                                <a data-ng-click="prevPage()">Prev</a>
+                            </li>
+                            <li>
+                                <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
+                            </li>
+                            <li data-ng-class="{disabled: currentPage == pageCount()}">
+                                <a data-ng-click="nextPage()">Next</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>           
+            </tfoot> 
+		</table>
+	</div>
+
+<div id="Monthly" class="tabcontent">
+<table class="table table-stripped table-hover">
+
+<caption><h1>Sales report<h1></caption>
+<!--
+<style type='text/css'>
+  /* Style to hide Dates / Months */
+  .ui-datepicker-calendar,.ui-datepicker-month { display: none; }
+</style>
+<script type='text/javascript'>
+  $(function(){
+    $('.datepicker').datepicker({
+        changeMonth: false,
+        changeYear: true,
+        showButtonPanel: true,
+        yearRange: '1950:2014',
+        dateFormat: 'yy',
+        onClose: function(dateText, inst) { 
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).datepicker('setDate', new Date(year, 0, 1));
+        }});
+    });
+</script>
+<body>
+  <input class='datepicker'/>
+</body>
+-->
+<thead>
+
+  <tr>
+            <th id="pno" scope="col">No</th>
+            <th id="id1" scope="col">Sales Id</th>
+            <th id="pid" scope="col">Product Id</th>
+            <th id="pname" scope="col">Product Name</th>
+            <th id="qut" scope="col">Quantity</th>
+            <th id="memid" scope="col">Member Id</th>
+            <th id="oprice" scope="col">Overall Price</th>
+            <th id="sdate" scope="col">Date</th>
+			</tr>
+    </thead> 
+	 <tbody>
+	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
+	 
+	  </tbody>
+	  
+	  
+	      <tfoot>   
+                <tr>
+                    <td colspan="10">
+                        <ul class="pagination"> 
+                            <li data-ng-class="{disabled: currentPage == 0}">
+                                <a data-ng-click="prevPage()">Prev</a>
+                            </li>
+                            <li>
+                                <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
+                            </li>
+                            <li data-ng-class="{disabled: currentPage == pageCount()}">
+                                <a data-ng-click="nextPage()">Next</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>           
+            </tfoot>
+		</table>
+	</div>
+
+<div id="Yearly" class="tabcontent">
+
+ <table class="table table-stripped table-hover">
+
+<caption><h1>Sales report<h1></caption>
+
+<thead>
+
+  <tr>
+            <th id="pno" scope="col">No</th>
+            <th id="id1" scope="col">Sales Id</th>
+            <th id="pid" scope="col">Product Id</th>
+            <th id="pname" scope="col">Product Name</th>
+            <th id="qut" scope="col">Quantity</th>
+            <th id="memid" scope="col">Member Id</th>
+            <th id="oprice" scope="col">Overall Price</th>
+            <th id="sdate" scope="col">Date</th>
+			</tr>
+    </thead> 
+	 <tbody>
+	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
+	 
+	  </tbody>
+	  
+	  
+	      <tfoot>   
+                <tr>
+                    <td colspan="10">
+                        <ul class="pagination"> 
+                            <li data-ng-class="{disabled: currentPage == 0}">
+                                <a data-ng-click="prevPage()">Prev</a>
+                            </li>
+                            <li>
+                                <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
+                            </li>
+                            <li data-ng-class="{disabled: currentPage == pageCount()}">
+                                <a data-ng-click="nextPage()">Next</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>           
+            </tfoot>
+		</table>
+	</div>
