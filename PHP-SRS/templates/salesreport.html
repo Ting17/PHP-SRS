@@ -3,7 +3,7 @@
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 
 
-<div class="row" data-ng-controller="getP">
+<div class="row" data-ng-controller="getSalesReport">
 <div class="col-xs-12 col-sm-12 col-lg-12">
 <style>
 body {font-family: "Lato", sans-serif;}
@@ -208,9 +208,19 @@ ul.tab li a:focus, .active {
  <table class="table table-stripped table-hover">
 
 <caption><h1>Sales report<h1></caption>
-
+<form>
+<select name="searchBy" id="searchBy" data-ng-model="searchBy">
+	<option value = "2010">2010</option>
+	<option value = "2011">2011</option>
+	<option value = "2012">2012</option>
+	<option value = "2013">2013</option>
+	<option value = "2014">2014</option>
+	<option value = "2015">2015</option>
+	<option value = "2016">2016</option>	
+</select>
+<input type="submit" name="submit_year" data-ng-click="getSales('sales_date',searchBy)" value="Submit">
+</form>
 <thead>
-
   <tr>
             <th id="pno" scope="col">No</th>
             <th id="id1" scope="col">Sales Id</th>
@@ -222,12 +232,19 @@ ul.tab li a:focus, .active {
             <th id="sdate" scope="col">Date</th>
 			</tr>
     </thead> 
-	 <tbody>
-	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
-	 
-	  </tbody>
-	  
-	  
+	<tbody>
+		<tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
+            <td headers="pno">{{(currentPage* rowperpage)+$index+1}}</td>
+            <td headers="id1">{{post.sales_id}}</td>
+            <td headers="pid">{{post.prod_id}}</td>
+            <td headers="pname">{{post.prod_name}}</td>
+            <td headers="qut">{{post.sales_quantity}}</td>
+            <td headers="memid">{{post.member_id}}</td>
+            <td headers="oprice">$ {{post.sales_price | number: 2}}</td>
+            <td headers="sdate">{{post.sales_date}}</td>
+		</tr>
+	</tbody>
+
 	      <tfoot>   
                 <tr>
                     <td colspan="10">
