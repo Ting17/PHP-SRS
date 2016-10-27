@@ -221,15 +221,7 @@
 </div>
         
 <div class="col-xs-12 col-sm-12 col-lg-12">
-    <button id="export" data-export="export">Export</button>
-    <script>
-        $(function(){
-            $("#export").click(function(){
-                $("#export_table").tableToCSV();
-            });
-        });
-    </script>
-    
+
     <button type="button" class="btn btn-info btn-md glyphicon glyphicon-plus" data-toggle="modal" data-target="#add"> Add</button>
      
     <!-- add form-->
@@ -302,13 +294,10 @@
             <!-- Manufacture Date  -->           
             
 <div class="form-group" data-ng-class="{ 'has-error' : !form.Manu_date.$pristine }">
-<!--    Selected Date: {{ data.date | date:'yyyy-MM-dd a' }}-->
+
     
     <label class="asterick">Product Manufacture Date:</label>
     <input type="date" name="Manu_date" class="form-control" data-ng-model="Manu_date" required /> <br/>
-
-<!--    {{date | date: 'yyyy-MM-dd'}}-->
-    
     
 </div>
  <!-- Expiry Date  -->
@@ -328,31 +317,6 @@
     </div>
     </div>     
 </div>
-
-<!--
-    
-    <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function () {
-                 $('#datetimepicker1').data("DateTimePicker").function (datepicker({viewMode: 'years'});)
-//                $('#datetimepicker1').datepicker({viewMode: 'years'});
-            });
-        </script>
-    </div>
-</div>
-    
--->
     
 </div>
 

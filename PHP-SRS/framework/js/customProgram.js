@@ -87,8 +87,6 @@ app.controller("getP", function ($scope, $http) {
                 $scope.posts = "error in fetching data";
             }
         );
-    
-   
 });
 
 
@@ -244,9 +242,9 @@ app.controller("newSales", function ($scope, $http) {
 
 });
 
-app.controller("getSales", function ($scope, $http) {
+app.controller("getSales", function ($scope, $http, $filter) {
     "use strict";
-    $http.get('sales_api/getSales.php')
+    $http.get('api/getSalesR.php')
         .then(
             function (response) {
                 $scope.posts = response.data;
@@ -269,7 +267,7 @@ app.controller("getSales", function ($scope, $http) {
                     if ($scope.currentPage < $scope.pageCount()) {
                         $scope.currentPage = $scope.currentPage + 1;
                     }
-                };
+                };            
             },
             function () {
         // error handling routine

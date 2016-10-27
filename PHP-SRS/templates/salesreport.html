@@ -3,8 +3,10 @@
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 
 
-<div class="row" data-ng-controller="getP">
+<div class="row" data-ng-controller="getSales">
 <div class="col-xs-12 col-sm-12 col-lg-12">
+     
+    
 <style>
 body {font-family: "Lato", sans-serif;}
 
@@ -50,7 +52,7 @@ ul.tab li a:focus, .active {
 }
 </style>
 
-<!--<div class="table-responsive">-->
+
 
 <ul class="tab">
   <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Daily')">Daily</a></li>
@@ -58,192 +60,227 @@ ul.tab li a:focus, .active {
   <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Yearly')">Yearly</a></li>
 </ul>
 
-
-
+<!--Daily tab-->
 <div id="Daily" class="tabcontent">
- <table class="table table-stripped table-hover">
+    <label>Input date: </label>
+    <input type=text data-ng-model="sales_date" name="sales_date">
+    
+<div class="table-responsive">
+<table class="table table-stripped table-hover" id="export_table">
+    <caption><h1>Sales report</h1></caption>
+<thead>
+    <tr>
+        <th id="pno" scope="col">No</th>
+        <th id="id1" scope="col">Sales Id</th>
+        <th id="pid" scope="col">Product Id</th>
+        <th id="pname" scope="col">Product Name</th>
+        <th id="qut" scope="col">Quantity</th>
+        <th id="memid" scope="col">Member Id</th>
+        <th id="oprice" scope="col">Overall Price</th>
+        <th id="sdate" scope="col">Date</th>
+    </tr>
+</thead> 
+    
+<tbody>    
+    <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage | filter: sales_date" >
+	    <td headers="pno">{{(currentPage* rowperpage)+$index+1}}</td>
+        <td headers="id1">{{post.sales_id}}</td>
+        <td headers="pid">{{post.prod_id}}</td>
+        <td headers="pname">{{post.prod_name}}</td>
+        <td headers="qut">{{post.sales_quantity}}</td>
+        <td headers="memid">{{post.member_id}}</td>
+        <td headers="oprice">$ {{post.sales_price | number: 2}}</td>
+        <td headers="sdate">{{post.sales_date}}</td>
+    </tr> 
+</tbody>
+<tfoot>    
+    <tr>
+        <td colspan="8">
+            <ul class="pagination"> 
+                <li data-ng-class="{disabled: currentPage == 0}">
+                    <a data-ng-click="prevPage()">Prev</a>
+                </li>
+                <li>
+                    <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
+                </li>
+                <li data-ng-class="{disabled: currentPage == pageCount()}">
+                    <a data-ng-click="nextPage()">Next</a>
+                </li>
+            </ul>
+        </td>
+    </tr>           
+</tfoot> 
+</table>
 
-<caption><h1>Sales report<h1></caption>
-
-<!--datepicker-->
-<!--
-<div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-		<script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
+</div>
+    <button id="export" data-export="export">Export</button>
+    <script>
+        $(function(){
+            $("#export").click(function(){
+                $("#export_table").tableToCSV();
             });
-        </script>
-    </div>
+        });
+    </script> 
 </div>
 
--->
-
-<!--
-
-<div class="input-group date" data-provide="datepicker">
-    <input type="date" class="form-control">
-    <div class="input-group-addon">
-        <span class="glyphicon glyphicon-th"></span>
-    </div>
-</div>
--->
-<thead>
-
-  <tr>
-            <th id="pno" scope="col">No</th>
-            <th id="id1" scope="col">Sales Id</th>
-            <th id="pid" scope="col">Product Id</th>
-            <th id="pname" scope="col">Product Name</th>
-            <th id="qut" scope="col">Quantity</th>
-            <th id="memid" scope="col">Member Id</th>
-            <th id="oprice" scope="col">Overall Price</th>
-            <th id="sdate" scope="col">Date</th>
-			</tr>
-    </thead> 
-	 <tbody>
-	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
-	 
-	  </tbody>
-	  
-
-	      <tfoot>   
-                <tr>
-                    <td colspan="10">
-                        <ul class="pagination"> 
-                            <li data-ng-class="{disabled: currentPage == 0}">
-                                <a data-ng-click="prevPage()">Prev</a>
-                            </li>
-                            <li>
-                                <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
-                            </li>
-                            <li data-ng-class="{disabled: currentPage == pageCount()}">
-                                <a data-ng-click="nextPage()">Next</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>           
-            </tfoot> 
-		</table>
-	</div>
-
+<!--Monthly tab-->
 <div id="Monthly" class="tabcontent">
-<table class="table table-stripped table-hover">
+     
+<select class="form control" data-ng-model="sales_date2" name="obj.sales_date">
+    <option>01</option>   
+    <option>02</option> 
+    <option>03</option> 
+    <option>04</option> 
+    <option>05</option> 
+    <option>06</option>
+    <option>07</option>   
+    <option>08</option> 
+    <option>09</option> 
+    <option>10</option> 
+    <option>11</option> 
+    <option>12</option> 
+</select> 
+    
+<select class="form control" data-ng-model="sales_date3" name="obj.sales_date2">
+    <option>2011</option>   
+    <option>2012</option> 
+    <option>2013</option> 
+    <option>2014</option> 
+    <option>2015</option> 
+    <option>2016</option> 
+</select> 
 
-<caption><h1>Sales report<h1></caption>
-<!--
-<style type='text/css'>
-  /* Style to hide Dates / Months */
-  .ui-datepicker-calendar,.ui-datepicker-month { display: none; }
-</style>
-<script type='text/javascript'>
-  $(function(){
-    $('.datepicker').datepicker({
-        changeMonth: false,
-        changeYear: true,
-        showButtonPanel: true,
-        yearRange: '1950:2014',
-        dateFormat: 'yy',
-        onClose: function(dateText, inst) { 
-            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-            $(this).datepicker('setDate', new Date(year, 0, 1));
-        }});
-    });
-</script>
-<body>
-  <input class='datepicker'/>
-</body>
--->
+<div class="table-responsive">    
+<table class="table table-stripped table-hover" id="export_tableM">
+    <caption><h1>Sales report</h1></caption>
 <thead>
+    <tr>
+        <th id="pnom" scope="col">No</th>
+        <th id="id1m" scope="col">Sales Id</th>
+        <th id="pidm" scope="col">Product Id</th>
+        <th id="pnamem" scope="col">Product Name</th>
+        <th id="qutm" scope="col">Quantity</th>
+        <th id="memidm" scope="col">Member Id</th>
+        <th id="opricem" scope="col">Overall Price</th>
+        <th id="sdatem" scope="col">Date</th>
+    </tr>
+</thead> 
+    
+<tbody>
+    <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage | filter: sales_date2 | filter: sales_date3">
+        <td headers="pnom">{{(currentPage* rowperpage)+$index+1}}</td>
+        <td headers="id1m">{{post.sales_id}}</td>
+        <td headers="pidm">{{post.prod_id}}</td>
+        <td headers="pnamem">{{post.prod_name}}</td>
+        <td headers="qutm">{{post.sales_quantity}}</td>
+        <td headers="memidm">{{post.member_id}}</td>
+        <td headers="opricem">$ {{post.sales_price}}</td>
+        <td headers="sdatem">{{post.sales_date}}</td>
+    </tr>
+</tbody>
+<tfoot>   
+    <tr>
+        <td colspan="8">
+            <ul class="pagination"> 
+                <li data-ng-class="{disabled: currentPage == 0}">
+                    <a data-ng-click="prevPage()">Prev</a>
+                </li>
+                <li>
+                    <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
+                </li>
+                <li data-ng-class="{disabled: currentPage == pageCount()}">
+                    <a data-ng-click="nextPage()">Next</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</tfoot>
+</table>
+</div> 
+    <div>
+     <button id="exportM" data-export="export">Export</button>
+    <script>
+        $(function(){
+            $("#exportM").click(function(){
+                $("#export_tableM").tableToCSV();
+            });
+        });
+    </script> 
+        </div>
+</div>
 
-  <tr>
-            <th id="pno" scope="col">No</th>
-            <th id="id1" scope="col">Sales Id</th>
-            <th id="pid" scope="col">Product Id</th>
-            <th id="pname" scope="col">Product Name</th>
-            <th id="qut" scope="col">Quantity</th>
-            <th id="memid" scope="col">Member Id</th>
-            <th id="oprice" scope="col">Overall Price</th>
-            <th id="sdate" scope="col">Date</th>
-			</tr>
-    </thead> 
-	 <tbody>
-	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
-	 
-	  </tbody>
-	  
-	  
-	      <tfoot>   
-                <tr>
-                    <td colspan="10">
-                        <ul class="pagination"> 
-                            <li data-ng-class="{disabled: currentPage == 0}">
-                                <a data-ng-click="prevPage()">Prev</a>
-                            </li>
-                            <li>
-                                <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
-                            </li>
-                            <li data-ng-class="{disabled: currentPage == pageCount()}">
-                                <a data-ng-click="nextPage()">Next</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>           
-            </tfoot>
-		</table>
-	</div>
-
-<div id="Yearly" class="tabcontent">
-
- <table class="table table-stripped table-hover">
-
-<caption><h1>Sales report<h1></caption>
-
+    
+<!--Yearly tab-->    
+<div id="Yearly" class="tabcontent" >
+    
+<select class="form control" data-ng-model="sales_date4" name="sales_date4">
+    <option>2011</option>   
+    <option>2012</option> 
+    <option>2013</option> 
+    <option>2014</option> 
+    <option>2015</option> 
+    <option>2016</option> 
+</select> 
+  
+<div class="table-responsive">    
+<table class="table table-stripped table-hover" id="export_tableY">
+     <caption><h1>Sales report</h1></caption>
 <thead>
+    <tr>
+        <th id="pnoy" scope="col">No</th>
+        <th id="id1y" scope="col">Sales Id</th>
+        <th id="pidy" scope="col">Product Id</th>
+        <th id="pnamey" scope="col">Product Name</th>
+        <th id="quty" scope="col">Quantity</th>
+        <th id="memidy" scope="col">Member Id</th>
+        <th id="opricey" scope="col">Overall Price</th>
+        <th id="sdatey" scope="col">Date</th>
+    </tr>
+</thead> 
+     
+<tbody>           
+    <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage  | filter: sales_date4">
+        <td headers="pnoy">{{(currentPage* rowperpage)+$index+1}}</td>
+        <td headers="id1y">{{post.sales_id}}</td>
+        <td headers="pidy">{{post.prod_id}}</td>
+        <td headers="pnamey">{{post.prod_name}}</td>
+        <td headers="quty">{{post.sales_quantity}}</td>
+        <td headers="memidy">{{post.member_id}}</td>
+        <td headers="opricey">$ {{post.sales_price}}</td>
+        <td headers="sdatey">{{post.sales_date}}</td>
+    </tr>
+</tbody>
 
-  <tr>
-            <th id="pno" scope="col">No</th>
-            <th id="id1" scope="col">Sales Id</th>
-            <th id="pid" scope="col">Product Id</th>
-            <th id="pname" scope="col">Product Name</th>
-            <th id="qut" scope="col">Quantity</th>
-            <th id="memid" scope="col">Member Id</th>
-            <th id="oprice" scope="col">Overall Price</th>
-            <th id="sdate" scope="col">Date</th>
-			</tr>
-    </thead> 
-	 <tbody>
-	  <tr data-ng-repeat="post in posts | pagination: currentPage* rowperpage | limitTo: rowperpage">
-	 
-	  </tbody>
-	  
-	  
-	      <tfoot>   
-                <tr>
-                    <td colspan="10">
-                        <ul class="pagination"> 
-                            <li data-ng-class="{disabled: currentPage == 0}">
-                                <a data-ng-click="prevPage()">Prev</a>
-                            </li>
-                            <li>
-                                <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
-                            </li>
-                            <li data-ng-class="{disabled: currentPage == pageCount()}">
-                                <a data-ng-click="nextPage()">Next</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>           
-            </tfoot>
-		</table>
-	</div>
+<tfoot>   
+    <tr>
+        <td colspan="8">
+            <ul class="pagination"> 
+                <li data-ng-class="{disabled: currentPage == 0}">
+                    <a data-ng-click="prevPage()">Prev</a>
+                </li>
+                <li>
+                    <span>Page {{currentPage+1}} of {{pageCount()+1}} </span>
+                </li>
+                <li data-ng-class="{disabled: currentPage == pageCount()}">
+                    <a data-ng-click="nextPage()">Next</a>
+                </li>
+            </ul>
+        </td>
+    </tr>           
+</tfoot>
+</table>
+</div>
+    <button id="exportY" data-export="export">Export</button>
+    <script>
+        $(function(){
+            $("#exportY").click(function(){
+                $("#export_tableY").tableToCSV();
+            });
+        });
+    </script> 
+</div>
+    
+       
+
+</div>
+</div>
