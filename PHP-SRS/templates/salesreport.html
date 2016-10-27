@@ -6,7 +6,7 @@
 <div class="row" data-ng-controller="getSales">
 <div class="col-xs-12 col-sm-12 col-lg-12">
      
-    
+
 <style>
 body {font-family: "Lato", sans-serif;}
 
@@ -62,12 +62,15 @@ ul.tab li a:focus, .active {
 
 <!--Daily tab-->
 <div id="Daily" class="tabcontent">
-    <label>Input date: </label>
-    <input type=text data-ng-model="sales_date" name="sales_date">
-    
+<fieldset>
+<legend>
+<label>Input date: </label>
+<input type=text data-ng-model="sales_date" name="sales_date" placeholder="YYYY/MM/DD">
+</legend>
+</fieldset>
 <div class="table-responsive">
 <table class="table table-stripped table-hover" id="export_table">
-    <caption><h1>Sales report</h1></caption>
+    <caption><h1>Daily sales report</h1></caption>
 <thead>
     <tr>
         <th id="pno" scope="col">No</th>
@@ -113,6 +116,7 @@ ul.tab li a:focus, .active {
 </table>
 
 </div>
+
     <button id="export" data-export="export">Export</button>
     <script>
         $(function(){
@@ -121,12 +125,16 @@ ul.tab li a:focus, .active {
             });
         });
     </script> 
+
+
 </div>
 
 <!--Monthly tab-->
 <div id="Monthly" class="tabcontent">
-     
-<select class="form control" data-ng-model="sales_date2" name="obj.sales_date">
+<fieldset>
+<legend>
+<label>Input date:</label> 
+<select class="form control" data-ng-model="sales_date2" name="obj.sales_date" >
     <option>01</option>   
     <option>02</option> 
     <option>03</option> 
@@ -149,10 +157,11 @@ ul.tab li a:focus, .active {
     <option>2015</option> 
     <option>2016</option> 
 </select> 
-
+</legend>
+</fieldset>
 <div class="table-responsive">    
 <table class="table table-stripped table-hover" id="export_tableM">
-    <caption><h1>Sales report</h1></caption>
+    <caption><h1>Monthly sales report</h1></caption>
 <thead>
     <tr>
         <th id="pnom" scope="col">No</th>
@@ -197,6 +206,7 @@ ul.tab li a:focus, .active {
 </tfoot>
 </table>
 </div> 
+
     <div>
      <button id="exportM" data-export="export">Export</button>
     <script>
@@ -207,13 +217,16 @@ ul.tab li a:focus, .active {
         });
     </script> 
         </div>
+	
 </div>
 
     
 <!--Yearly tab-->    
 <div id="Yearly" class="tabcontent" >
-    
-<select class="form control" data-ng-model="sales_date4" name="sales_date4">
+<fieldset>
+<legend>
+<label>Input date: </label>
+<select class="form control" data-ng-model="sales_date4" name="sales_date4" >
     <option>2011</option>   
     <option>2012</option> 
     <option>2013</option> 
@@ -221,10 +234,12 @@ ul.tab li a:focus, .active {
     <option>2015</option> 
     <option>2016</option> 
 </select> 
-  
+</legend>
+</fieldset>
+
 <div class="table-responsive">    
 <table class="table table-stripped table-hover" id="export_tableY">
-     <caption><h1>Sales report</h1></caption>
+     <caption><h1>Yearly sales report</h1></caption>
 <thead>
     <tr>
         <th id="pnoy" scope="col">No</th>
@@ -270,6 +285,7 @@ ul.tab li a:focus, .active {
 </tfoot>
 </table>
 </div>
+
     <button id="exportY" data-export="export">Export</button>
     <script>
         $(function(){
@@ -278,6 +294,7 @@ ul.tab li a:focus, .active {
             });
         });
     </script> 
+
 </div>
     
        
