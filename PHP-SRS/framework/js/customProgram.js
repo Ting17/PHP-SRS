@@ -312,7 +312,63 @@ app.controller("editSales", function ($scope, $http) {
 
 /******************************************** SALES MODULES *************************************************/
 
-
+app.controller("getSalesReport", function ($scope, $http) {
+    "use strict";
+    $http.get('sales_api/getSales.php')
+        .then(
+            function (response) {
+                $scope.posts = response.data;
+            //row to show
+                $scope.rowperpage = 5;
+            //initialize current page number
+                $scope.currentPage = 0;
+            //count page
+                $scope.pageCount = function () {
+                    return Math.ceil($scope.posts.length / $scope.rowperpage) - 1;
+                };
+            //for previous
+                $scope.prevPage = function () {
+                    if ($scope.currentPage > 0) {
+                        $scope.currentPage = $scope.currentPage - 1;
+                    }
+                };
+            //for previous    
+                $scope.nextPage = function () {
+                    if ($scope.currentPage < $scope.pageCount()) {
+                        $scope.currentPage = $scope.currentPage + 1;
+                    }
+                };
+            },
+            function () {
+        // error handling routine
+                $scope.posts = "error in fetching data";
+            }
+        );
+		// define methods 
+		//data-ng-click="getSales('sales_date',searchBy)"
+		// define methods 
+    $scope.getSales = function(filterby, value) {
+        // Prepare the data
+		$scope.posts = "";
+        var url = "sales_api/getSalesReport.php";
+        var data = $.param({type: 'year', filterby: filterby, value: value});
+        var config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        //Call the services
+        $http.post(url, data, config)
+            .then(
+                function (response) {
+					$scope.posts = response.data;
+                },
+                function () {
+                    $scope.msg = "Service not Exists";
+                }
+            );
+    };
+});
 
 // Pagination with Client-Side Data
 //pagination filter is resposible for selecting the subset of items for current page
