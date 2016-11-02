@@ -1,4 +1,5 @@
 var app = angular.module("myApp", ["ngRoute"]);
+
 app.config(["$routeProvider", function ($routeProvider) {
     'use strict';
     //for $routeprovider
@@ -8,7 +9,8 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/product", {templateUrl: "templates/product.html"})
         .when("/sales", {templateUrl: "templates/sales.html"})
         .when("/logout", {templateUrl: "templates/home.html"})
-		.when("/salesreport", {templateUrl: "templates/salesreport.html"});
+		.when("/salesreport", {templateUrl: "templates/salesreport.html"})
+        .when("/saleschart", {templateUrl: "templates/saleschart.html"});
 }]);
 
 //control login 
