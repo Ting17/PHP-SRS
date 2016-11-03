@@ -9,8 +9,7 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/product", {templateUrl: "templates/product.html"})
         .when("/sales", {templateUrl: "templates/sales.html"})
         .when("/logout", {templateUrl: "templates/home.html"})
-		.when("/salesreport", {templateUrl: "templates/salesreport.html"})
-        .when("/saleschart", {templateUrl: "templates/saleschart.html"});
+		.when("/salesreport", {templateUrl: "templates/salesreport.html"});
 }]);
 
 //control login 
@@ -126,8 +125,6 @@ app.controller("postProduct", function ($scope, $http, dateFilter) {
                 });
     };
 });
-
-
 
 app.controller("putProduct", function ($scope, $http, dateFilter) {
     "use strict";
@@ -248,7 +245,11 @@ app.controller("getSales", function ($scope, $http, $filter) {
     "use strict";
     $http.get('api/getSalesR.php')
         .then(
+        
             function (response) {
+ 
+                $('.highchart').highchartTable();
+                
                 $scope.posts = response.data;
             //row to show
                 $scope.rowperpage = 5;

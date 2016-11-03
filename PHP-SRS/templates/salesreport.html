@@ -114,10 +114,34 @@ ul.tab li a:focus, .active {
     </tr>           
 </tfoot> 
 </table>
+  
+<button data-ng-click="showit= showit == true? false : true;">Generate Graph</button>
 
+<div data-ng-show="showit" >
+<table class="highchart" data-graph-container-before="1" data-graph-type="column" style="visibility: hidden" id="export_charttable">
+
+    <caption>Daily Sales Report</caption>
+<thead>
+    <tr >
+        <th id="pno" scope="col">Product Name</th>
+        <th id="id1" scope="col">Quantity</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td headers="pno">Panadol</td>
+        <td headers="id1">15</td>
+    </tr>
+</tbody>
+
+</table>
+
+
+    
+</div>
 </div>
 
-    <button id="export" data-export="export">Export</button>
+<button id="export" data-export="export">Export Daily Sales Report</button>
     <script>
         $(function(){
             $("#export").click(function(){
@@ -125,7 +149,15 @@ ul.tab li a:focus, .active {
             });
         });
     </script> 
-
+    
+<button id="exportC" data-export="export">Export Daily Sales Chart</button>
+    <script>
+        $(function(){
+            $("#exportC").click(function(){
+                $("#export_charttable").tableToCSV();
+            });
+        });
+    </script>  
 
 </div>
 
@@ -205,10 +237,36 @@ ul.tab li a:focus, .active {
     </tr>
 </tfoot>
 </table>
-</div> 
 
-    <div>
-     <button id="exportM" data-export="export">Export</button>
+<button data-ng-click="showit= showit == true? false : true;">Generate Graph</button>
+
+<div data-ng-show="showit" >
+<table class="highchart" data-graph-container-before="1" data-graph-type="column" style="visibility: hidden" id="export_charttableM">
+    <caption>Monthly Sales Report</caption>
+<thead>
+    <tr >
+        <th id="pno" scope="col">Product Name</th>
+        <th id="id1" scope="col">Quantity</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td headers="pno">Panadol</td>
+        <td headers="id1">15</td>
+    </tr>
+     <tr>
+        <td headers="pno">abc</td>
+        <td headers="id1">10</td>
+    </tr>
+   
+</tbody>
+</table>      
+</div>
+</div>
+<div>
+      
+    
+<button id="exportM" data-export="export">Export Daily Sales Report</button>
     <script>
         $(function(){
             $("#exportM").click(function(){
@@ -216,7 +274,18 @@ ul.tab li a:focus, .active {
             });
         });
     </script> 
+    
+<button id="exportCM" data-export="export">Export Daily Sales Chart</button>
+    <script>
+        $(function(){
+            $("#exportCM").click(function(){
+                $("#export_charttableM").tableToCSV();
+            });
+        });
+    </script>  
         </div>
+    
+    
 	
 </div>
 
@@ -284,9 +353,33 @@ ul.tab li a:focus, .active {
     </tr>           
 </tfoot>
 </table>
-</div>
+    
+<button data-ng-click="showit= showit == true? false : true;">Generate Graph</button>
 
-    <button id="exportY" data-export="export">Export</button>
+<div data-ng-show="showit" >
+<table class="highchart" data-graph-container-before="1" data-graph-type="column" style="visibility: hidden" id="export_charttableY">
+    <caption>Yearly Sales Report</caption>
+<thead>
+    <tr >
+        <th id="pno" scope="col">Product Name</th>
+        <th id="id1" scope="col">Quantity</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td headers="pno">Panadol</td>
+        <td headers="id1">105</td>
+    </tr>
+     <tr>
+        <td headers="pno">abc</td>
+        <td headers="id1">60</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+   
+<button id="exportY" data-export="export">Export Daily Sales Report</button>
     <script>
         $(function(){
             $("#exportY").click(function(){
@@ -294,6 +387,15 @@ ul.tab li a:focus, .active {
             });
         });
     </script> 
+    
+<button id="exportCY" data-export="export">Export Daily Sales Chart</button>
+    <script>
+        $(function(){
+            $("#exportCY").click(function(){
+                $("#export_charttableY").tableToCSV();
+            });
+        });
+    </script>  
 
 </div>
     
